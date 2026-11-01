@@ -1,0 +1,18 @@
+package: community.lazycat.app.kavita
+version: 0.9.1
+name: Kavita
+description: "Comic, manga and ebook server with a fast web reader and OPDS support."
+min_os_version: "1.5.0"
+homepage: https://github.com/Kareadita/Kavita
+author: Kareadita
+license: GPL-3.0
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: Kavita
+    description: "漫画/电子书服务器：快速 Web 阅读器、书库管理、OPDS 与多用户。"
+  en:
+    name: Kavita
+    description: "Comic, manga and ebook server with a fast web reader and OPDS support."

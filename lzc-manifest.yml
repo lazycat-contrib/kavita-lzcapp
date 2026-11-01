@@ -1,0 +1,38 @@
+application:
+  subdomain: kavita
+  multi_instance: false
+  upstreams:
+    - location: /package-licenses/
+      backend: file:///lzcapp/pkg/content/licenses/
+    - location: /
+      backend: http://kavita:5000/
+
+services:
+  kavita:
+    # upstream: linuxserver/kavita:0.9.1
+    image: docker.1ms.run/linuxserver/kavita:0.9.1
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    binds:
+      - /lzcapp/var/config:/config
+      - /lzcapp/var/library:/manga
+
+usage: |
+  Kavita 是漫画与电子书服务器：把书放进去，用网页快速阅读，支持多用户和 OPDS 阅读器。
+
+  使用方法：
+  1. 打开应用，第一次访问会进入初始化向导，按提示创建管理员账号。
+  2. 登录后到「设置 → 媒体库」新建一个书库，类型选漫画或电子书，目录指向 /manga 下的文件夹。
+  3. 触发扫描后即可在书架里浏览和阅读。
+
+  数据与安全：
+  - 数据库、封面缓存和配置保存在 /lzcapp/var/config，书库文件放在 /lzcapp/var/library，卸载应用会一并删除，请提前备份。
+  - 本包不预置账号或默认密码，管理员由你本人在首次访问的向导里创建。
+  - 应用经懒猫入口鉴权访问，未开放无需登录的接口路径。
+
+  说明：
+  - 书籍文件需要你自己放进 /lzcapp/var/library，本包不代管导入。
+  - 首次扫描大书库耗时较久属正常现象；封面和元数据会在扫描时生成。
+  - 未做真机验证：初始化向导、建库扫描、网页阅读、OPDS 连接以及重启后持久化均未在设备上实测。
